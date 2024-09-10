@@ -13,7 +13,6 @@ const Router = () => {
           if (route.isAuth && !isAuth) {
             return false;
           }
-
           return (
             <Route
               key={route.path}
