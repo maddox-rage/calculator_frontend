@@ -1,6 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
+import AuthProvider from "./providers/AuthProvider";
+import Router from "./routes/Routes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -12,6 +14,10 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </QueryClientProvider>
   </StrictMode>
 );
