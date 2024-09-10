@@ -6,6 +6,7 @@ export const routes = [
     path: "/",
     component: "Asdasd",
     isAuth: true,
+    isConfirmed: true,
   },
   {
     path: "/auth",
