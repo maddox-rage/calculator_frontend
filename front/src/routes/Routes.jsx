@@ -10,7 +10,7 @@ import { routes } from "./routes.data.js";
 import NotFound from "../components/screens/not-found/Not-found.jsx";
 import NotConfirmed from "../components/screens/not-confirmed/Not-confirmed.jsx";
 
-const RouteGuard = ({ element, isAuth, user, isConfirmed }) => {
+const RouteGuard = ({ element, isAuth, user }) => {
   const location = useLocation();
   const currentRoute = routes.find((route) => route.path === location.pathname);
 
@@ -22,16 +22,15 @@ const RouteGuard = ({ element, isAuth, user, isConfirmed }) => {
     return <Navigate to="/auth" replace />;
   }
 
-  if (currentRoute.isConfirmed && !user.isConfirmed) {
+  if (currentRoute.isConfirmed && !user.decode.isConfirmed) {
     return <Navigate to="/not-confirmed" replace />;
   }
 
   return element;
 };
-console.log(user.isConfirmed);
 const Router = () => {
   const { isAuth, user } = useAuth();
-
+  console.log(user.decode.isConfirmed);
   return (
     <BrowserRouter>
       <Routes>
@@ -44,7 +43,6 @@ const Router = () => {
                 element={<route.component />}
                 isAuth={isAuth}
                 user={user}
-                isConfirmed={user?.isConfirmed}
               />
             }
           />
