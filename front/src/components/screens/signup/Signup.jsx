@@ -1,4 +1,4 @@
-import Button from "../../ui/Button/Button.jsx";
+import Button from "../../ui/button/Button.jsx";
 import Field from "../../ui/Fields/Field.jsx";
 import Loader from "../../ui/Loader.jsx";
 import { useSignUp } from "./useSignup.js";
@@ -42,24 +42,34 @@ const SignUp = () => {
           placeholder="enter email"
         />
         <Field
-          error={errors?.fullName?.message}
-          name="fullName"
+          error={errors?.name?.message}
+          name="name"
           register={register}
           options={{
-            required: "fullName is required",
+            required: "name is required",
           }}
           type="text"
-          placeholder="enter fullName"
+          placeholder="enter name"
         />
         <Field
-          error={errors?.numberPhone?.message}
-          name="numberPhone"
+          error={errors?.surname?.message}
+          name="surname"
           register={register}
           options={{
-            required: "numberPhone is required",
+            required: "surname is required",
           }}
           type="text"
-          placeholder="enter numberPhone"
+          placeholder="enter surname"
+        />
+        <Field
+          error={errors?.patronymic?.message}
+          name="patronymic"
+          register={register}
+          options={{
+            required: "patronymic is required",
+          }}
+          type="text"
+          placeholder="enter patronymic"
         />
         <Button>Submit</Button>
         <a href="/auth">have a acc?</a>
