@@ -1,16 +1,17 @@
-import EmptyState from "../../ui/EmptyState";
+import CalcCount from "./CalcCount";
+import CalculatorHeader from "./components/CalculatorHeader";
 import Layout from "../../layout/Layout";
 import CalculatorList from "./components/CalculatorList";
-
-const Calculator = () => {
+const CalcPage = () => {
   return (
     <Layout>
       <CalculatorList />
       <div className="hidden lg:block lg:pl-80 h-full">
-        <EmptyState />
+        <CalculatorHeader />
+        <CalcCount />
       </div>
     </Layout>
   );
 };
 
-export default Calculator;
+export default CalcPage;

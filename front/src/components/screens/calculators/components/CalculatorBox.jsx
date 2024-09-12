@@ -3,11 +3,14 @@
 import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
+// import LoadingModal from "../../../modals/LoadingModal"
+
 const CalculatorBox = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
+      {/* {isLoading && <LoadingModal />} */}
       <div
         className="
           w-full 
