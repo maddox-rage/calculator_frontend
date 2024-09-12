@@ -29,7 +29,7 @@ const SignUp = () => {
                 error={errors?.login?.message}
                 name="login"
                 register={register}
-                options={{ required: "Логин обязательный" }}
+                options={{ required: "Это поле обязательно" }}
                 type="text"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
               />
@@ -43,7 +43,7 @@ const SignUp = () => {
                 error={errors?.password?.message}
                 name="password"
                 register={register}
-                options={{ required: "Пароль обязательный" }}
+                options={{ required: "Это поле обязательно" }}
                 type="password"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
               />
@@ -57,7 +57,7 @@ const SignUp = () => {
                 error={errors?.email?.message}
                 name="email"
                 register={register}
-                options={{ required: "Email обязательный" }}
+                options={{ required: "Это поле обязательно" }}
                 type="text"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
               />
@@ -71,7 +71,7 @@ const SignUp = () => {
                 error={errors?.name?.message}
                 name="name"
                 register={register}
-                options={{ required: "Имя обязательное" }}
+                options={{ required: "Это поле обязательно" }}
                 type="text"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
               />
@@ -85,7 +85,7 @@ const SignUp = () => {
                 error={errors?.surname?.message}
                 name="surname"
                 register={register}
-                options={{ required: "Фамилия обязательна" }}
+                options={{ required: "Это поле обязательно" }}
                 type="text"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
               />
@@ -98,7 +98,7 @@ const SignUp = () => {
                 error={errors?.patronymic?.message}
                 name="patronymic"
                 register={register}
-                options={{ required: "Отчество обязательно" }}
+                options={{ required: "Это поле обязательно" }}
                 type="text"
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
               />

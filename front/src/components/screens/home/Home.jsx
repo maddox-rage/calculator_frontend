@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 import { useAuth } from "../../../hooks/useAuth";
 import userService from "../../../services/user.service";
 import Layout from "../../layout/Layout.jsx";
+import Loader from "../../ui/Loader.jsx";
 
 const Home = () => {
   const { user } = useAuth();
@@ -17,7 +18,7 @@ const Home = () => {
   return (
     <Layout>
       <h1>Home</h1>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loader />}
       {data && <p>User Info: {JSON.stringify(data)}</p>}
       <button onClick={refetch}>Отправить запрос</button>
     </Layout>

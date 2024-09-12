@@ -1,5 +1,7 @@
 import { useQuery } from "react-query";
 import adminService from "../../../services/admin.service";
+import Layout from "../../layout/Layout";
+import Loader from "../../ui/Loader";
 
 const Admin = () => {
   const { data, refetch, isLoading } = useQuery(
@@ -8,11 +10,13 @@ const Admin = () => {
     { select: ({ data }) => data }
   );
   return (
-    <div>
-      <h1>admin</h1>
-      {isLoading && <p>Loading...</p>}
-      {data && <p>User Info: {JSON.stringify(data)}</p>}
-    </div>
+    <Layout>
+      <div>
+        <h1>admin</h1>
+        {isLoading && <Loader />}
+        {data && <p>User Info: {JSON.stringify(data)}</p>}
+      </div>
+    </Layout>
   );
 };
 export default Admin;

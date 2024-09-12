@@ -1,13 +1,11 @@
-import Header from "./header/Header";
+import Sidebar from "./sidebar/Sidebar";
 
 const Layout = ({ children }) => {
   return (
     <div>
-      <section>
-        <Header />
-        <h1>Layout</h1>
-        {children && <div>{children}</div>}
-      </section>
+      <Sidebar>
+        <section className="h-screen flex">{children}</section>
+      </Sidebar>
     </div>
   );
 };
