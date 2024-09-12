@@ -1,5 +1,3 @@
-import Cookies from "js-cookie";
-import { TOKEN } from "../app.constants";
 import { $axios } from "../api";
 
 class userService {

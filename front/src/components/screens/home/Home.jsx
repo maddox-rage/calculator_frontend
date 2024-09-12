@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
 import { useAuth } from "../../../hooks/useAuth";
 import userService from "../../../services/user.service";
+import Layout from "../../layout/Layout.jsx";
 
 const Home = () => {
   const { user } = useAuth();
-  console.log("home", user);
   const { data, refetch, isLoading } = useQuery(
     ["get userInfo", user?.sub],
     () => userService.getUserById(user.decode.sub),
@@ -14,14 +14,13 @@ const Home = () => {
     }
   );
 
-  console.log("user", data);
   return (
-    <div>
+    <Layout>
       <h1>Home</h1>
       {isLoading && <p>Loading...</p>}
       {data && <p>User Info: {JSON.stringify(data)}</p>}
       <button onClick={refetch}>Отправить запрос</button>
-    </div>
+    </Layout>
   );
 };
 export default Home;

@@ -22,15 +22,17 @@ const RouteGuard = ({ element, isAuth, user }) => {
     return <Navigate to="/auth" replace />;
   }
 
-  if (currentRoute.isConfirmed && !user.decode.isConfirmed) {
+  if (currentRoute.isConfirmed && !user?.decode?.isConfirmed) {
     return <Navigate to="/not-confirmed" replace />;
+  }
+  if (currentRoute.isAdmin && !user?.decode?.isAdmin) {
+    return <Navigate to="/" replace />;
   }
 
   return element;
 };
 const Router = () => {
   const { isAuth, user } = useAuth();
-  console.log(user.decode.isConfirmed);
   return (
     <BrowserRouter>
       <Routes>
