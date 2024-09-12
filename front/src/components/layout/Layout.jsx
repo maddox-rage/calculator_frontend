@@ -4,7 +4,7 @@ const Layout = ({ children }) => {
   return (
     <div>
       <Sidebar>
-        <section className="h-screen flex">{children}</section>
+        <section>{children && <div>{children}</div>}</section>
       </Sidebar>
     </div>
   );
