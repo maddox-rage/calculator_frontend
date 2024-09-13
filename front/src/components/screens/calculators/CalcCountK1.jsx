@@ -14,6 +14,7 @@ const CalcCountK1 = () => {
   const [uncertaintyExpanded, setUncertaintyExpanded] = useState(0);
   const [capacity, setCapacity] = useState(2);
   const [uncertaintyResult, setUncertaintyResult] = useState("");
+  const [isCalculated, setIsCalculated] = useState(false);
 
   const calculateValues = () => {
     const uncertaintyB = absoluteError / Math.sqrt(3);
@@ -30,11 +31,8 @@ const CalcCountK1 = () => {
     )} ± ${expandedUncertainty.toFixed(capacity)}) единица; k = 2; P = 0,95.`;
 
     setUncertaintyResult(result);
+    setIsCalculated(true);
   };
-
-  useEffect(() => {
-    calculateValues();
-  }, [absoluteError, measurementResult, capacity]);
 
   const saveValues = () => {
     const savedData = {
@@ -56,8 +54,17 @@ const CalcCountK1 = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <label>Абсолютная погрешность [Δ]: </label>
-          <input
+          {/* <input
             type="number"
+            value={absoluteError}
+            onChange={(e) => setAbsoluteError(parseFloat(e.target.value))}
+          /> */}
+          <Field
+            error={errors?.resultValue?.message}
+            name="value3"
+            type="text"
+            register={register}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
             value={absoluteError}
             onChange={(e) => setAbsoluteError(parseFloat(e.target.value))}
           />
@@ -65,8 +72,17 @@ const CalcCountK1 = () => {
 
         <div>
           <label>Результат измерений X: </label>
-          <input
+          {/* <input
             type="number"
+            value={measurementResult}
+            onChange={(e) => setMeasurementResult(parseFloat(e.target.value))}
+          /> */}
+          <Field
+            error={errors?.resultValue?.message}
+            name="value2"
+            type="text"
+            register={register}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
             value={measurementResult}
             onChange={(e) => setMeasurementResult(parseFloat(e.target.value))}
           />
@@ -74,54 +90,98 @@ const CalcCountK1 = () => {
 
         <div>
           <label>Разрядность (capacity): </label>
-          <input
+          {/* <input
             type="number"
+            value={capacity}
+            onChange={(e) => setCapacity(parseInt(e.target.value))}
+          /> */}
+          <Field
+            error={errors?.resultValue?.message}
+            name="value1"
+            type="text"
+            register={register}
+            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
             value={capacity}
             onChange={(e) => setCapacity(parseInt(e.target.value))}
           />
         </div>
 
-        <div>
-          <label>Неопределённость по типу В: </label>
-          <input
-            type="number"
-            value={uncertaintyBType.toFixed(capacity)}
-            readOnly
-          />
-        </div>
+        <button type="button" onClick={calculateValues}>
+          Рассчитать
+        </button>
 
-        <div>
-          <label>Суммарная неопределённость: </label>
-          <input
-            type="number"
-            value={uncertaintyTotal.toFixed(capacity)}
-            readOnly
-          />
-        </div>
+        {isCalculated && (
+          <>
+            <div>
+              <label>Неопределённость по типу В: </label>
+              {/* <input
+                type="number"
+                value={uncertaintyBType.toFixed(capacity)}
+                readOnly
+              /> */}
+              <Field
+                error={errors?.resultValue?.message}
+                name="uncertaintyBType"
+                type="text"
+                register={register}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
+                value={uncertaintyBType.toFixed(capacity)}
+                readOnly
+              />
+            </div>
 
-        <div>
-          <label>Расширенная неопределённость: </label>
-          <input
-            type="number"
-            value={uncertaintyExpanded.toFixed(capacity)}
-            readOnly
-          />
-        </div>
+            <div>
+              <label>Суммарная неопределённость: </label>
+              {/* <input
+                type="number"
+                value={uncertaintyTotal.toFixed(capacity)}
+                readOnly
+              /> */}
+              <Field
+                error={errors?.resultValue?.message}
+                name="uncertaintyTotal"
+                type="text"
+                register={register}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
+                value={uncertaintyTotal.toFixed(capacity)}
+                readOnly
+              />
+            </div>
 
-        <div>
-          <label>Результат неопределённости: </label>
-          <Field
-            error={errors?.resultValue?.message}
-            name="resultValue"
-            register={register}
-            type="text"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
-            value={uncertaintyResult}
-            readOnly
-          />
-        </div>
+            <div>
+              <label>Расширенная неопределённость: </label>
+              {/* <input
+                type="number"
+                value={uncertaintyExpanded.toFixed(capacity)}
+                readOnly
+              /> */}
+              <Field
+                error={errors?.resultValue?.message}
+                name="uncertaintyExpanded"
+                type="text"
+                register={register}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
+                value={uncertaintyExpanded.toFixed(capacity)}
+                readOnly
+              />
+            </div>
 
-        <button>Сохранить</button>
+            <div>
+              <label>Результат неопределённости: </label>
+              <Field
+                error={errors?.resultValue?.message}
+                name="resultValue"
+                register={register}
+                type="text"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring focus:ring-sky-500 focus:ring-opacity-50"
+                value={uncertaintyResult}
+                readOnly
+              />
+            </div>
+
+            <button>Сохранить</button>
+          </>
+        )}
       </form>
     </div>
   );
