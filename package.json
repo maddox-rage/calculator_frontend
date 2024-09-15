@@ -1,9 +1,9 @@
 {
-  "name": "front",
+  "name": "calculator_frontend",
   "private": true,
   "version": "0.0.0",
   "type": "commonjs",
-  "homepage":"https://maddox-rage.github.io/calculator_frontend",
+  "homepage": "https://maddox-rage.github.io/calculator_frontend",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
