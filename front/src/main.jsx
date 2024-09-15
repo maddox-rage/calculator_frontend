@@ -4,7 +4,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import AuthProvider from "./providers/AuthProvider";
 import Router from "./routes/Routes";
 import "./global.css";
-import fastifyStatic from "@fastify/static";
 
 const queryClient = new QueryClient({
   defaultOptions: {
