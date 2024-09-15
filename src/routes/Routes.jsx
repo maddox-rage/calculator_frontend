@@ -20,29 +20,14 @@ const RouteGuard = ({ element, isAuth, user }) => {
   }
 
   if (currentRoute.isAuth && !isAuth) {
-    return (
-      <Navigate
-        to="https://maddox-rage.github.io/calculator_frontend/auth"
-        replace
-      />
-    );
+    return <Navigate to="/auth" replace />;
   }
 
   if (currentRoute.isConfirmed && !user.decode.isConfirmed) {
-    return (
-      <Navigate
-        to="https://maddox-rage.github.io/calculator_frontend/not-confirmed"
-        replace
-      />
-    );
+    return <Navigate to="/not-confirmed" replace />;
   }
   if (currentRoute.isAdmin && !user?.decode?.isAdmin) {
-    return (
-      <Navigate
-        to="https://maddox-rage.github.io/calculator_frontend/"
-        replace
-      />
-    );
+    return <Navigate to="/" replace />;
   }
 
   return element;
@@ -65,14 +50,8 @@ const Router = () => {
             }
           />
         ))}
-        <Route
-          path="https://maddox-rage.github.io/calculator_frontend/calculator/CalcPageK1"
-          element={<CalcPageK1 />}
-        />
-        <Route
-          path="https://maddox-rage.github.io/calculator_frontend/not-confirmed"
-          element={<NotConfirmed />}
-        />
+        <Route path="/calculator/CalcPageK1" element={<CalcPageK1 />} />
+        <Route path="/not-confirmed" element={<NotConfirmed />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
