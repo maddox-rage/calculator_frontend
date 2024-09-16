@@ -118,7 +118,7 @@ const CalcCountK1 = () => {
 
         <button
           type="button"
-          className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+          class="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 w-full bg-sky-500 text-white hover:bg-sky-600"
           onClick={calculateValues}
         >
           Рассчитать
@@ -186,7 +186,7 @@ const CalcCountK1 = () => {
               />
             </div>
 
-            <button className="w-full bg-green-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-green-700 transition duration-300">
+            <button class="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 w-full bg-sky-500 text-white hover:bg-sky-600">
               Сохранить
             </button>
           </div>
