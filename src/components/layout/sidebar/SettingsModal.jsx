@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form"; // Импортируйте useForm, если вы его используете
-import Button from "../../ui/button/Button";
+import Button from "../../ui/button/Button.jsx";
 import Field from "../../ui/Fields/Field.jsx";
 import Modal from "./Modals.jsx";
 
