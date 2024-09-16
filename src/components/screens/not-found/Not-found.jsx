@@ -14,7 +14,7 @@ const NotFoundPage = () => {
         </p>
         <div className="mt-6">
           <a
-            href="calculator_frontend/"
+            href="/"
             className="px-8 py-4 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           >
             Вернуться на главную
