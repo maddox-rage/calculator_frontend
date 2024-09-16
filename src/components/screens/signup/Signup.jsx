@@ -1,5 +1,5 @@
-import Button from "../../ui/button/Button";
-import Field from "../../ui/Fields/Field";
+import Button from "components/ui/button/Button";
+import Field from "components/ui/Fields/Field";
 import Loader from "../../ui/Loader.jsx";
 import { useSignUp } from "./useSignup.js";
 
