@@ -20,14 +20,14 @@ const RouteGuard = ({ element, isAuth, user }) => {
   }
 
   if (currentRoute.isAuth && !isAuth) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to="/calculator_frontend/auth" replace />;
   }
 
   if (currentRoute.isConfirmed && !user.decode.isConfirmed) {
-    return <Navigate to="/not-confirmed" replace />;
+    return <Navigate to="/calculator_frontend/not-confirmed" replace />;
   }
   if (currentRoute.isAdmin && !user?.decode?.isAdmin) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/calculator_frontend/" replace />;
   }
 
   return element;
@@ -50,8 +50,14 @@ const Router = () => {
             }
           />
         ))}
-        <Route path="/calculator/CalcPageK1" element={<CalcPageK1 />} />
-        <Route path="/not-confirmed" element={<NotConfirmed />} />
+        <Route
+          path="/calculator_frontend/calculator/CalcPageK1"
+          element={<CalcPageK1 />}
+        />
+        <Route
+          path="/calculator_frontend/not-confirmed"
+          element={<NotConfirmed />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
