@@ -1,5 +1,5 @@
-import Button from "../../ui/button/Button.jsx";
-import Field from "../../ui/Fields/Field.jsx";
+import Button from "../../ui/button/Button";
+import Field from "../../ui/Fields/Field";
 import Loader from "../../ui/Loader.jsx";
 import { useSignUp } from "./useSignup.js";
 
