@@ -63,11 +63,14 @@ const CalcCountK1 = () => {
           <Field
             error={errors?.resultValue?.message}
             name="value3"
-            type="text"
+            type="number"
+            step="any"
             register={register}
             className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             value={absoluteError}
-            onChange={(e) => setAbsoluteError(parseFloat(e.target.value))}
+            onChange={(e) =>
+              setAbsoluteError(parseFloat(e.target.value.replace(",", ".")))
+            }
           />
         </div>
 
@@ -78,11 +81,14 @@ const CalcCountK1 = () => {
           <Field
             error={errors?.resultValue?.message}
             name="value2"
-            type="text"
+            type="number"
+            step="any"
             register={register}
             className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             value={measurementResult}
-            onChange={(e) => setMeasurementResult(parseFloat(e.target.value))}
+            onChange={(e) =>
+              setMeasurementResult(parseFloat(e.target.value.replace(",", ".")))
+            }
           />
         </div>
 
@@ -93,11 +99,14 @@ const CalcCountK1 = () => {
           <Field
             error={errors?.resultValue?.message}
             name="value1"
-            type="text"
+            type="number"
+            step="any"
             register={register}
             className="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50"
             value={capacity}
-            onChange={(e) => setCapacity(parseInt(e.target.value))}
+            onChange={(e) =>
+              setCapacity(parseInt(e.target.value.replace(",", ".")))
+            }
           />
         </div>
 
