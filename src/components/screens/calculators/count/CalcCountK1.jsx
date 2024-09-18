@@ -16,11 +16,30 @@ const CalcCountK1 = () => {
   const [uncertaintyResult, setUncertaintyResult] = useState("");
   const [isCalculated, setIsCalculated] = useState(false);
   const [unit, setUnit] = useState("мг/м³");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const calculateValues = () => {
+    if (isNaN(measurementResult) || isNaN(absoluteError)) {
+      setErrorMessage(
+        "Результат измерений или абсолютная погрешность не являются допустимыми числами."
+      );
+      return;
+    }
+
+    if (measurementResult > 1e10 || absoluteError > 1e10) {
+      setErrorMessage(
+        "Результат измерений или абсолютная погрешность слишком большие."
+      );
+      return;
+    }
+
+    if (measurementResult <= 0 || absoluteError <= 0) {
+      setErrorMessage("Значения должны быть больше нуля.");
+      return;
+    }
+
     const uncertaintyB = absoluteError / Math.sqrt(3);
     setUncertaintyBType(uncertaintyB);
-
     const totalUncertainty = uncertaintyB;
     setUncertaintyTotal(totalUncertainty);
 
@@ -28,32 +47,17 @@ const CalcCountK1 = () => {
     setUncertaintyExpanded(expandedUncertainty);
 
     const result = `(${measurementResult.toFixed(
-      capacity
+      capacity + 2
     )} ± ${expandedUncertainty.toFixed(capacity)}) ${unit}; k = 2; P = 0,95.`;
 
     setUncertaintyResult(result);
     setIsCalculated(true);
   };
 
-  const saveValues = () => {
-    const savedData = {
-      absoluteError,
-      measurementResult,
-      uncertaintyBType,
-      uncertaintyTotal,
-      uncertaintyExpanded,
-      capacity,
-      unit,
-    };
-    console.log("Данные сохранены:", savedData);
-    alert("Данные успешно сохранены!");
-  };
-
   return (
     <div className="">
       {isLoading && <Loader />}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
-        {/* Блок выбора единицы измерения */}
         <div className="px-6">
           <h3 className="text-2xl font-bold text-gray-800 mb-6 mt-6">
             Расчёт К1 Прямое измерение, абсолютная погрешность
@@ -72,7 +76,6 @@ const CalcCountK1 = () => {
           </select>
         </div>
 
-        {/* Спецификация измерений */}
         <div className="border-b border-gray-900/10 pb-12">
           <h2 className="text-lg font-semibold px-6">
             Спецификация измерений:
@@ -126,6 +129,9 @@ const CalcCountK1 = () => {
               />
             </div>
           </div>
+          {errorMessage && (
+            <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+          )}
           <div className="flex justify-end mb-4 mr-5">
             <button
               type="button"
@@ -151,7 +157,7 @@ const CalcCountK1 = () => {
                   type="text"
                   register={register}
                   className="border border-gray-900/10 rounded px-2 py-1 w-1/2"
-                  value={uncertaintyBType.toFixed(capacity)}
+                  value={uncertaintyBType.toFixed(capacity + 2)}
                   readOnly
                 />
               </div>
@@ -165,7 +171,7 @@ const CalcCountK1 = () => {
                   type="text"
                   register={register}
                   className="border border-gray-900/10 rounded px-2 py-1 w-1/2"
-                  value={uncertaintyTotal.toFixed(capacity)}
+                  value={uncertaintyTotal.toFixed(capacity + 2)}
                   readOnly
                 />
               </div>
@@ -179,7 +185,7 @@ const CalcCountK1 = () => {
                   type="text"
                   register={register}
                   className="border border-gray-900/10 rounded px-2 py-1 w-1/2"
-                  value={uncertaintyExpanded.toFixed(capacity)}
+                  value={uncertaintyExpanded.toFixed(capacity + 2)}
                   readOnly
                 />
               </div>
