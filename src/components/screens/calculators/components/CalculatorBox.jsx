@@ -1,14 +1,18 @@
+"use client";
+
+import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
+// import LoadingModal from "../../../modals/LoadingModal"
+
 const CalculatorBox = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <>
-      <Link
-        className="text-md font-medium text-gray-900 dark:text-gray-200"
-        to={"/calculator/CalcPageK1"}
-      >
-        <div
-          className="
+      {/* {isLoading && <LoadingModal />} */}
+      <div
+        className="
           w-full 
           relative 
           flex 
@@ -22,16 +26,20 @@ const CalculatorBox = () => {
           dark:bg-dusk
           dark:hover:bg-lightgray
         "
-        >
-          <div className="min-w-0 flex-1">
+      >
+        <div className="min-w-0 flex-1">
+          <Link
+            className="text-md font-medium text-gray-900 dark:text-gray-200"
+            to={"/calculator/CalcPageK1"}
+          >
             <div className="focus:outline-none">
               <div className="flex justify-between items-center mb-1">
                 МИ П.16-2021
               </div>
             </div>
-          </div>
+          </Link>
         </div>
-      </Link>
+      </div>
     </>
   );
 };

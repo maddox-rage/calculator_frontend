@@ -3,7 +3,7 @@ import Calculator from "../components/screens/calculators/Calculator";
 import History from "../components/screens/history/History";
 import Home from "../components/screens/home/Home";
 import NotConfirmed from "../components/screens/not-confirmed/Not-confirmed";
-import SignIn from "../components/screens/signin/Signin";
+import SignIn from "../components/screens/signin/signin";
 import SignUp from "../components/screens/signup/Signup";
 
 export const routes = [
