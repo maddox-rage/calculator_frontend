@@ -3,6 +3,7 @@ import Field from "../../ui/Fields/Field.jsx";
 import LoaderOverlay from "../../ui/LoaderOverlay";
 import ErrorMessage from "../../ui/Notification/ErrorMessage.jsx";
 import { useSignIn } from "./useSignin.js";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
   const { errors, handleSubmit, isLoading, onSubmit, register, authError } =
@@ -26,7 +27,7 @@ const SignIn = () => {
 
         <div className="bg-white shadow-lg rounded-lg p-8">
           {isLoading && <LoaderOverlay />}
-          <ErrorMessage message={authError} /> {/* Отображаем ошибку */}
+          <ErrorMessage message={authError} />
           <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -66,12 +67,12 @@ const SignIn = () => {
             <div className="relative">
               <div className="mt-4 flex justify-center gap-2 text-sm text-gray-500">
                 <div>У вас нет аккаунта?</div>
-                <a
-                  href="/register"
+                <Link
+                  to="/register"
                   className="font-medium text-gray-500 hover:text-gray-600 cursor-pointer underline"
                 >
                   Зарегистрируйтесь
-                </a>
+                </Link>
               </div>
             </div>
           </div>
