@@ -5,7 +5,8 @@ import CalcPageK1 from "../components/screens/calculators/pages/CalcPageK1";
 import CalcPageK2 from "../components/screens/calculators/pages/CalcPageK2";
 import CalcPageK3 from "../components/screens/calculators/pages/CalcPageK3";
 import History from "../components/screens/history/History";
-import HistoryPageK1 from "../components/screens/history/HistoryPageK1";
+import HistoryPageK1 from "../components/screens/history/pages/HistoryPageK1";
+import HistoryPageK2 from "../components/screens/history/pages/HistoryPageK2";
 import Home from "../components/screens/home/Home";
 import NotConfirmed from "../components/screens/not-confirmed/Not-confirmed";
 import SignIn from "../components/screens/signin/Signin";
@@ -92,6 +93,13 @@ export const routes = [
   {
     path: "/history/HistoryK1",
     component: HistoryPageK1,
+    isAuth: true,
+    isConfirmed: true,
+    isAdmin: false,
+  },
+  {
+    path: "/history/HistoryK2",
+    component: HistoryPageK2,
     isAuth: true,
     isConfirmed: true,
     isAdmin: false,

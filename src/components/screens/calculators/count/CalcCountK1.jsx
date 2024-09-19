@@ -5,7 +5,7 @@ import Loader from "../../../ui/Loader";
 
 const CalcCountK1 = () => {
   const { errors, handleSubmit, isLoading, onSubmit, register } =
-    useCalculator();
+    useCalculator(1);
 
   const [absoluteError, setAbsoluteError] = useState(0);
   const [measurementResult, setMeasurementResult] = useState(0);
@@ -100,7 +100,7 @@ const CalcCountK1 = () => {
             </div>
             <div className="flex items-center px-6">
               <label htmlFor="value3" className="text-sm text-gray-700 w-1/2">
-                Абсолютная погрешность [Δ]:
+                Абсолютная погрешность [Δ]±:
               </label>
               <Input
                 error={errors?.resultValue?.message}
@@ -149,7 +149,7 @@ const CalcCountK1 = () => {
             <div className="mt-6 grid grid-cols-2 gap-6">
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Неопределённость по типу В:
+                  Неопределённость по типу В(Ub∆):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}
@@ -163,7 +163,7 @@ const CalcCountK1 = () => {
               </div>
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Суммарная неопределённость:
+                  Суммарная неопределённость(Uc):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}
@@ -177,7 +177,7 @@ const CalcCountK1 = () => {
               </div>
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Расширенная неопределённость:
+                  Расширенная неопределённость(U):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}

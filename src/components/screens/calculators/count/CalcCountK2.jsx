@@ -5,7 +5,7 @@ import Loader from "../../../ui/Loader";
 
 const CalcCountK2 = () => {
   const { errors, handleSubmit, isLoading, onSubmit, register } =
-    useCalculator();
+    useCalculator(2);
 
   const [relativeError, setRelativeError] = useState(0);
   const [measurementResult, setMeasurementResult] = useState(0);
@@ -38,22 +38,10 @@ const CalcCountK2 = () => {
     return totalUncertainty * 2;
   };
 
-  const getUncertaintyResult = (expandedUncertainty) => {
+  const getUncertaintyResult = (uncertaintyResult) => {
     return `(${measurementResult.toFixed(
       capacity
-    )} ± ${expandedUncertainty.toFixed(capacity)}) ${unit}; k = 2; P = 0,95.`;
-  };
-
-  const saveValues = () => {
-    const savedData = {
-      relativeError,
-      measurementResult,
-      uncertaintyBType,
-      capacity,
-      unit,
-    };
-    console.log("Данные сохранены:", savedData);
-    alert("Данные успешно сохранены!");
+    )} ± ${uncertaintyResult.toFixed(capacity)}) ${unit}; k = 2; P = 0,95.`;
   };
 
   return (
@@ -102,7 +90,7 @@ const CalcCountK2 = () => {
             </div>
             <div className="flex items-center px-6">
               <label htmlFor="value3" className="text-sm text-gray-700 w-1/2">
-                Абсолютная погрешность [% Δ]:
+                Относительная погрешность [δ], %:
               </label>
               <Input
                 error={errors?.resultValue?.message}
@@ -148,7 +136,7 @@ const CalcCountK2 = () => {
             <div className="mt-6 grid grid-cols-2 gap-6">
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Неопределённость по типу В:
+                  Неопределённость по типу В(Ubδ):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}
@@ -162,7 +150,7 @@ const CalcCountK2 = () => {
               </div>
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Суммарная неопределённость:
+                  Суммарная неопределённость(Uc):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}
@@ -176,7 +164,7 @@ const CalcCountK2 = () => {
               </div>
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Расширенная неопределённость:
+                  Расширенная неопределённость(U):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}
@@ -192,7 +180,7 @@ const CalcCountK2 = () => {
               </div>
               <div className="flex items-center px-6">
                 <label className="text-sm text-gray-900 w-1/2">
-                  Результат неопределённости:
+                  Результат неопределённости(X):
                 </label>
                 <Input
                   error={errors?.resultValue?.message}
@@ -206,11 +194,7 @@ const CalcCountK2 = () => {
               </div>
             </div>
             <div className="flex justify-end mt-5 mb-4 mr-5">
-              <button
-                type="button"
-                className="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-sky-500 text-white hover:bg-sky-600"
-                onClick={saveValues}
-              >
+              <button className="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-sky-500 text-white hover:bg-sky-600">
                 Сохранить
               </button>
             </div>

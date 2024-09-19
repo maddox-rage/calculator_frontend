@@ -16,7 +16,8 @@ const DesktopSidebar = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     Cookies.remove("token");
-    navigate("/auth");
+    navigate("/");
+    window.location.reload();
   };
   return (
     <div
