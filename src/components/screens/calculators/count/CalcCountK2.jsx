@@ -11,21 +11,23 @@ const CalcCountK2 = () => {
   const [measurementResult, setMeasurementResult] = useState(0);
   const [uncertaintyBType, setUncertaintyBType] = useState(0);
   const [capacity, setCapacity] = useState(2);
-  const [uncertaintyResult, setUncertaintyResult] = useState("");
+  const [uncertaintyResult, setUncertaintyResult] = useState(0);
   const [isCalculated, setIsCalculated] = useState(false);
   const [unit, setUnit] = useState("мг/м³");
 
   const calculateValues = () => {
     const uncertaintyB =
       (relativeError * measurementResult) / (100 * Math.sqrt(3));
+
+    const totalUncertainty = uncertaintyB;
+
+    const expandedUncertainty = totalUncertainty * 2;
+
+    const result = `(${measurementResult.toFixed(
+      capacity
+    )} ± ${expandedUncertainty.toFixed(capacity)}) ${unit}; k = 2; P = 0,95.`;
+
     setUncertaintyBType(uncertaintyB);
-
-    const totalUncertainty = getUncertaintyTotal();
-
-    const expandedUncertainty = getUncertaintyExpanded(totalUncertainty);
-
-    const result = getUncertaintyResult(expandedUncertainty);
-
     setUncertaintyResult(result);
     setIsCalculated(true);
   };
@@ -38,10 +40,10 @@ const CalcCountK2 = () => {
     return totalUncertainty * 2;
   };
 
-  const getUncertaintyResult = (uncertaintyResult) => {
+  const getUncertaintyResult = (expandedUncertainty) => {
     return `(${measurementResult.toFixed(
       capacity
-    )} ± ${uncertaintyResult.toFixed(capacity)}) ${unit}; k = 2; P = 0,95.`;
+    )} ± ${expandedUncertainty.toFixed(capacity)}) ${unit}; k = 2; P = 0,95.`;
   };
 
   return (
