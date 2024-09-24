@@ -30,12 +30,14 @@ const HistoryTable = () => {
     direction: "descending",
   });
   const [clickCount, setClickCount] = useState({});
+  const [resultIds, setSelectedIds] = useState([]);
 
   const handleItemsPerPageChange = (event) => {
     setItemsPerPage(Number(event.target.value));
     setCurrentPage(1);
   };
   const CalculatorId = 1;
+
   const handleSort = (key) => {
     setClickCount((prevCount) => {
       const newCount = { ...prevCount, [key]: (prevCount[key] || 0) + 1 };
@@ -96,6 +98,7 @@ const HistoryTable = () => {
   );
 
   const headers = [
+    { label: "Выбрать", key: "select" },
     { label: "Результат", key: "resultValue" },
     { label: "Абсолютная погрешность ([Δ]±)", key: "value3" },
     { label: "Результат измерений X", key: "value2" },
@@ -105,6 +108,28 @@ const HistoryTable = () => {
     { label: "Расширенная неопределённость(U)", key: "uncertaintyExpanded" },
     { label: "Дата", key: "createdAt" },
   ];
+
+  const handleSelect = (id) => {
+    setSelectedIds((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((selectedId) => selectedId !== id)
+        : [...prevSelected, id]
+    );
+  };
+  console.log("id", resultIds);
+  const handleSendSelected = async () => {
+    try {
+      const response = await $axios.post(
+        `user/${user.decode.sub}/result/${CalculatorId}/excel/byId`,
+        { resultIds },
+        { responseType: "blob" }
+      );
+      const fileName = "calculation_results.xlsx";
+      saveAs(new Blob([response.data]), fileName);
+    } catch (error) {
+      console.error("Ошибка при отправке данных:", error);
+    }
+  };
 
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(startItem + itemsPerPage - 1, sortedData.length);
@@ -122,7 +147,7 @@ const HistoryTable = () => {
                 <th
                   key={key}
                   className="py-2 px-2 text-sm font-semibold cursor-pointer border-b border-gray-300"
-                  onClick={() => handleSort(key)}
+                  onClick={() => key !== "select" && handleSort(key)}
                 >
                   {label}
                   {sortConfig.key === key ? (
@@ -132,7 +157,9 @@ const HistoryTable = () => {
                       <LuArrowDownWideNarrow className="inline ml-1" />
                     )
                   ) : (
-                    <TbArrowsUpDown className="inline ml-1" />
+                    key !== "select" && (
+                      <TbArrowsUpDown className="inline ml-1" />
+                    )
                   )}
                 </th>
               ))}
@@ -144,6 +171,13 @@ const HistoryTable = () => {
                 key={item.id}
                 className="hover:bg-gray-50 border-b border-gray-200"
               >
+                <td className="py-2 px-4 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={resultIds.includes(item.id)}
+                    onChange={() => handleSelect(item.id)}
+                  />
+                </td>
                 <td className="py-2 px-4 text-sm">{item.resultValue}</td>
                 <td className="py-2 px-4 text-sm">{item.value3}</td>
                 <td className="py-2 px-4 text-sm">{item.value2}</td>
@@ -163,16 +197,23 @@ const HistoryTable = () => {
       </div>
 
       <div className="flex justify-between items-center mt-4">
-        {/* Кнопка "Скачать" слева */}
-        <button
-          onClick={handleDownload}
-          className="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-sky-500 text-white hover:bg-sky-600"
-        >
-          <LuDownload className="mr-1" />
-          Скачать
-        </button>
+        {resultIds.length > 0 ? (
+          <button
+            onClick={handleSendSelected}
+            className={`lex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-sky-500 text-white hover:bg-sky-600`}
+          >
+            Отправить выбранные ({resultIds.length})
+          </button>
+        ) : (
+          <button
+            onClick={handleDownload}
+            className="flex justify-center rounded-md px-3 py-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 bg-sky-500 text-white hover:bg-sky-600"
+          >
+            <LuDownload className="mr-1" />
+            Скачать
+          </button>
+        )}
 
-        {/* Элементы в правом нижнем углу */}
         <div className="flex items-center">
           <div className="flex items-center mr-4">
             <label className="text-sm mr-2">Элементов на странице:</label>
@@ -193,7 +234,6 @@ const HistoryTable = () => {
             {startItem}-{endItem} из {sortedData.length}
           </div>
 
-          {/* Пагинация */}
           <div className="flex items-center">
             <button
               onClick={() => setCurrentPage(1)}
