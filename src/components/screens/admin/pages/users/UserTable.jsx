@@ -1,13 +1,15 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
+import { Modal, Button, Group } from "@mantine/core";
 import Loader from "../../../../ui/Loader";
 import { GiConfirmed } from "react-icons/gi";
 import { MdOutlineNotInterested } from "react-icons/md";
 
 const UserTable = ({ users }) => {
-  if (!users) {
-    return <Loader />;
-  }
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [modalOpened, setModalOpened] = useState(false);
+
+  // Хуки всегда вызываются, независимо от наличия users
   const columns = useMemo(
     () => [
       {
@@ -48,16 +50,66 @@ const UserTable = ({ users }) => {
           </span>
         ),
       },
+      {
+        header: "Actions",
+        Cell: ({ row }) => (
+          <Button onClick={() => openModal(row.original)}>Просмотреть</Button>
+        ),
+      },
     ],
     []
   );
 
   const table = useMantineReactTable({
     columns,
-    data: users,
+    data: users || [], // Передаем пустой массив, если users нет
   });
 
-  return <MantineReactTable table={table} />;
+  const openModal = (user) => {
+    setSelectedUser(user);
+    setModalOpened(true);
+  };
+
+  // Возвращаем основной JSX независимо от наличия данных
+  return (
+    <>
+      {!users ? <Loader /> : <MantineReactTable table={table} />}
+
+      <Modal
+        opened={modalOpened}
+        onClose={() => setModalOpened(false)}
+        title="Детали пользователя"
+      >
+        {selectedUser && (
+          <div>
+            <p>
+              <strong>Имя:</strong> {selectedUser.name}
+            </p>
+            <p>
+              <strong>Фамилия:</strong> {selectedUser.surname}
+            </p>
+            <p>
+              <strong>Отчество:</strong> {selectedUser.patronymic}
+            </p>
+            <p>
+              <strong>Email:</strong> {selectedUser.email}
+            </p>
+            <p>
+              <strong>Логин:</strong> {selectedUser.login}
+            </p>
+            <p>
+              <strong>Администратор:</strong>
+              {selectedUser.isAdmin ? "Да" : "Нет"}
+            </p>
+            <p>
+              <strong>Подтверждён:</strong>
+              {selectedUser.isConfirmed ? "Да" : "Нет"}
+            </p>
+          </div>
+        )}
+      </Modal>
+    </>
+  );
 };
 
 export default UserTable;
