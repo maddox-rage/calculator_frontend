@@ -32,7 +32,6 @@ export const useSignUp = () => {
     {
       onSuccess: (data) => {
         setIsAuth(true);
-        console.log("use - ", data);
         setUser(data);
         reset();
       },
